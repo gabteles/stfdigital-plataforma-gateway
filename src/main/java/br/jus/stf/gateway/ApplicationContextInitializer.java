@@ -1,7 +1,5 @@
 package br.jus.stf.gateway;
 
-import java.util.Arrays;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -40,15 +38,16 @@ public class ApplicationContextInitializer {
 	    /**
 	     * Todos as origens são permitidas.
 	     */
-	    config.addAllowedOrigin("*");
+	    config.addAllowedOrigin(CorsConfiguration.ALL);
 	    /**
 	     * Apenas os headers abaixo são suportados. Uma requisição com um header fora dessa lista será rejeitada.
 	     */
-	    config.addAllowedHeader("Content-Type, Accept");
+	    config.addAllowedHeader("Content-Type");
+	    config.addAllowedHeader("Accept");
 	    /**
 	     * Todos os métodos abaixo são suportados. Uma requisição com método fora dessa lista será rejeitada.
 	     */
-	    config.setAllowedMethods(Arrays.asList(new String[] {"HEAD", "GET", "PUT", "POST", "DELETE", "OPTIONS", "TRACE", "PATCH"}));
+	    config.addAllowedMethod(CorsConfiguration.ALL);
 	    source.registerCorsConfiguration("/**", config);
 	    return new CorsFilter(source);
 	}
