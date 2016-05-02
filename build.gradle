@@ -5,6 +5,7 @@ buildscript {
         springIntegrationVersion = '1.0.7.RELEASE'
         dependencyManagementPlugin = '0.5.2.RELEASE'
         springCloudVersion = '1.0.7.RELEASE'
+        swaggerUiVersion = '2.1.4'
     }
     repositories {
         mavenLocal()
@@ -16,6 +17,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementPlugin}")
         classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.6.0")
+        classpath('de.undercouch:gradle-download-task:2.1.0')
     }
 }
 
@@ -30,6 +32,8 @@ apply plugin: 'maven'
 apply plugin: 'java'
 
 apply plugin: "com.palantir.docker"
+
+apply plugin: 'de.undercouch.download'
 
 repositories {
     mavenLocal()
@@ -59,6 +63,25 @@ dependencies {
     
     compile('org.springframework.cloud:spring-cloud-starter-zuul')
 }
+
+import de.undercouch.gradle.tasks.download.Download
+
+task downloadSwaggerZipFile(type: Download) {
+    src "https://github.com/swagger-api/swagger-ui/archive/v${swaggerUiVersion}.zip"
+    dest new File(buildDir, 'swagger.zip')
+}
+
+task unzipSwaggerZipFile(dependsOn: downloadSwaggerZipFile, type: Copy) {
+    from zipTree(downloadSwaggerZipFile.dest)
+    into buildDir
+}
+
+task installSwagger(dependsOn: unzipSwaggerZipFile, type: Copy) {
+	from new File(buildDir, "swagger-ui-${swaggerUiVersion}/dist")
+	into new File(buildDir, 'resources/main/public/apidocs/swagger');
+}
+
+tasks.processResources.dependsOn installSwagger
 
 docker {
     name jar.baseName
