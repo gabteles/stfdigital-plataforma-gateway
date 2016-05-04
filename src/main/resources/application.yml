@@ -23,3 +23,9 @@ eureka:
   instance:
     preferIpAddress: false
     hostname: gateway
+
+# Aumentando o timeout do gateway
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
