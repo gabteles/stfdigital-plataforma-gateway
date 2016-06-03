@@ -85,5 +85,6 @@ tasks.processResources.dependsOn installSwagger
 docker {
     name jar.baseName
     dockerfile 'src/main/docker/Dockerfile'
+	files 'ssl/docker/server.p12'
     dependsOn tasks.jar, tasks.bootRepackage, tasks.build
 }
