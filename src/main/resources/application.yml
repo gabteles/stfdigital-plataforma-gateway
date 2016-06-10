@@ -29,7 +29,10 @@ eureka:
       enabled: true      
   instance:
     preferIpAddress: false
-    hostname: gateway
+    hostname: docker
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: ${server.port}
 
 # Aumentando o timeout do gateway
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
