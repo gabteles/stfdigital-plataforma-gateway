@@ -12,6 +12,7 @@
 .settings/
 .classpath
 .project
+.springBeans
 
 # Gradle
 .gradle

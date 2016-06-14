@@ -28,7 +28,6 @@ eureka:
     healthcheck:
       enabled: true      
   instance:
-    preferIpAddress: false
     hostname: docker
     non-secure-port-enabled: false
     secure-port-enabled: true
