@@ -82,9 +82,11 @@ task installSwagger(dependsOn: unzipSwaggerZipFile, type: Copy) {
 
 tasks.processResources.dependsOn installSwagger
 
+ext.dockerImageTag = project.hasProperty('dockerImageTag') ? project.getProperty('dockerImageTag') : ''
+
 docker {
-    name jar.baseName
+    name jar.baseName + (dockerImageTag ? ':' + dockerImageTag : '')
     dockerfile 'src/main/docker/Dockerfile'
-	files 'ssl/docker/server.p12'
+	files 'src/main/docker/docker-entrypoint.sh', 'ssl/docker/server.p12'
     dependsOn tasks.jar, tasks.bootRepackage, tasks.build
 }
