@@ -54,21 +54,21 @@ public class ApplicationContextInitializer {
 	@Bean
 	public CorsFilter corsFilter() {
 	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    final CorsConfiguration configuration = new CorsConfiguration();
+	    final CorsConfiguration config = new CorsConfiguration();
 	    /**
 	     * Todos as origens são permitidas.
 	     */
-	    configuration.addAllowedOrigin(CorsConfiguration.ALL);
+	    config.addAllowedOrigin(CorsConfiguration.ALL);
 	    /**
 	     * Apenas os headers abaixo são suportados. Uma requisição com um header fora dessa lista será rejeitada.
 	     */
-	    configuration.addAllowedHeader("Content-Type");
-	    configuration.addAllowedHeader("Accept");
+	    config.addAllowedHeader("Content-Type");
+	    config.addAllowedHeader("Accept");
 	    /**
 	     * Todos os métodos abaixo são suportados. Uma requisição com método fora dessa lista será rejeitada.
 	     */
-	    configuration.addAllowedMethod(CorsConfiguration.ALL);
-	    source.registerCorsConfiguration("/**", configuration);
+	    config.addAllowedMethod(CorsConfiguration.ALL);
+	    source.registerCorsConfiguration("/**", config);
 	    return new CorsFilter(source);
 	}
 	
