@@ -33,7 +33,22 @@ eureka:
     secure-port-enabled: true
     secure-port: ${server.port}
     
+security:
+  basic:
+    enabled: true
+  user:
+    password: none
+  oauth2:
+    client:
+      clientId: userinterface
+      clientSecret: userinterface
+      accessTokenUri: http://localhost:8095/oauth/token
+      userAuthorizationUri: http://localhost:8095/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8095/user
+    
 zuul:
+  sensitive-headers: 
   routes:
     discovery:
       url: http://discovery:8761
@@ -44,3 +59,5 @@ hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
   ConnectTimeout: 3000
   ReadTimeout: 60000
+  
+  
