@@ -42,10 +42,10 @@ security:
     client:
       clientId: userinterface
       clientSecret: userinterface
-      accessTokenUri: http://localhost:8095/oauth/token
-      userAuthorizationUri: http://localhost:8095/oauth/authorize
+      accessTokenUri: http://userauthentication:8095/oauth/token
+      userAuthorizationUri: http://userauthentication:8095/oauth/authorize
     resource:
-      user-info-uri: http://localhost:8095/user
+      user-info-uri: http://userauthentication:8095/user
     
 zuul:
   sensitive-headers: 
