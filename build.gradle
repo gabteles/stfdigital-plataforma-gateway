@@ -10,7 +10,7 @@ buildscript {
         mavenLocal()
         mavenCentral()
         maven { url "http://repo.spring.io/release" }
-        maven { url "https://plugins.gradle.org/m2/" }		
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -101,8 +101,34 @@ tasks.processResources.dependsOn installSwagger
 
 ext.dockerImageTag = project.hasProperty('dockerImageTag') ? project.getProperty('dockerImageTag') : ''
 
+// Diretório do contexto Docker
+ext.dockerDir = "${project.buildDir}" + '/docker'
+// Caminho do arquivo Jar no contexto do Docker
+ext.dockerAppJarFile = dockerDir + '/' + jar.baseName + '.jar'
+
+// Extendendo a task dockerPrepare para explodir o Jar e permitir criar layers dockers para cada categoria de libs
+dockerPrepare {
+    doLast {
+        // Layer Docker com as libs externas, atualizadas com menos frequência e por isso estarão em uma layer abaixo das outras
+        copy {
+            from(zipTree(file(dockerAppJarFile))) {
+                include 'lib/**'
+            }
+            into dockerDir + '/app-lib-layer'
+        }
+        // Layer Docker da aplicação em si, conterá um Jar pequeno, o que permite otimizar o pull da imagem do registro.
+        copy {
+            from(zipTree(file(dockerAppJarFile))) {
+                exclude 'lib/**'
+            }
+            into dockerDir + '/app-layer'
+        }
+        delete dockerAppJarFile
+    }
+}
+
 docker {
-    name jar.baseName + (dockerImageTag ? ':' + dockerImageTag : '')
+    name dockerImageName + (dockerImageTag ? ':' + dockerImageTag : '')
     dockerfile 'src/main/docker/Dockerfile'
 	files 'src/main/docker/docker-entrypoint.sh', 'ssl/docker/server.p12'
     dependsOn tasks.jar, tasks.bootRepackage, tasks.build

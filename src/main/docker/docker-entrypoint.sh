@@ -1,5 +1,4 @@
 #!/bin/sh
 set -e
 
-# Executa o app
-exec java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTS -jar /app.jar "$@"
+exec java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTS -cp /app/ org.springframework.boot.loader.JarLauncher "$@"
