@@ -15,7 +15,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementPlugin}")
-        classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.6.0")
+        classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.8.0")
         classpath('de.undercouch:gradle-download-task:2.1.0')
     }
 }
