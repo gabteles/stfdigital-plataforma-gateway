@@ -15,12 +15,13 @@ before_cache:
 cache:
   directories:
   - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
   - "$HOME/docker_cache"
 before_install:
 - "./scripts/upgrade-docker.sh"
 - mkdir -p $HOME/docker_cache
 install: docker load -i $HOME/docker_cache/docker.tar || true
-script: gradle docker
+script: ./gradlew docker --refresh-dependencies
 after_success:
 - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 - export REPO=supremotribunalfederal/stfdigital-plataforma-gateway
