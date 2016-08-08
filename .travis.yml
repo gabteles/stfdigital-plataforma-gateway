@@ -21,7 +21,7 @@ before_install:
 - "./scripts/upgrade-docker.sh"
 - mkdir -p $HOME/docker_cache
 install: docker load -i $HOME/docker_cache/docker.tar || true
-script: ./gradlew docker --refresh-dependencies
+script: gradle docker --refresh-dependencies
 after_success:
 - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 - export REPO=supremotribunalfederal/stfdigital-plataforma-gateway
