@@ -40,7 +40,7 @@ public class WebSecurityConfigurer extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http
 			.antMatcher("/**").authorizeRequests()
-				.antMatchers("/discovery/api/routes", "/discovery/api/commands", "/discovery/api/queries/**", "/documents/api/onlyoffice/baseUrl", "/userauthentication/oauth/token", "/**/bundle.js*", "/manage/**", "/*/manage/info").permitAll()
+				.antMatchers("/discovery/api/routes", "/discovery/api/commands", "/discovery/api/queries/**", "/documents/api/onlyoffice/baseUrl", "/userauthentication/oauth/token", "/**/bundle.js*", "/manage/**", "/*/manage/info", "/apidocs/**", "/*/api-docs/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
 				.csrf().ignoringAntMatchers("/userauthentication/oauth/token").csrfTokenRepository(new CustomHttpSessionCsrfTokenRepository())
