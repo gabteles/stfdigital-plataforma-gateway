@@ -21,11 +21,11 @@
 		</encoder>
 	</appender>
 
-	<root level="DEBUG">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="JSON" />
 	</root>
-	<!--
+	
     <logger name="org.springframework.security" level="WARN"/>
     <logger name="org.springframework.context" level="WARN"/>
     <logger name="org.springframework.beans" level="WARN"/>
@@ -55,7 +55,6 @@
     <logger name="io.undertow" level="WARN"/>
     <logger name="org.xnio" level="WARN"/>   
     <logger name="com.netflix.discovery" level="WARN"/>
-    -->
     
 </configuration>
 
