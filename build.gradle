@@ -77,6 +77,8 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-zuul')
     
     compile("net.logstash.logback:logstash-logback-encoder:${logstashLogbackEncoderVersion}")
+    
+    compile("org.jolokia:jolokia-core")
 }
 
 // Cobertura de testes
