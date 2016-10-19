@@ -43,7 +43,7 @@ public class WebSecurityConfigurer extends ResourceServerConfigurerAdapter {
 				.antMatchers("/discovery/api/routes", "/discovery/api/commands", "/discovery/api/queries/**", "/documents/api/onlyoffice/baseUrl", "/identidades/oauth/token", "/**/bundle.js*", "/manage/**", "/*/manage/info", "/apidocs/**", "/*/api-docs/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
-				.csrf().ignoringAntMatchers("/identidades/oauth/token").csrfTokenRepository(new CustomHttpSessionCsrfTokenRepository())
+				.csrf().ignoringAntMatchers("/identidades/oauth/token", "/manage/**").csrfTokenRepository(new CustomHttpSessionCsrfTokenRepository())
 			.and()
 				.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 	}
